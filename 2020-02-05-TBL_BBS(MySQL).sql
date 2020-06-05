@@ -11,4 +11,5 @@ alter table tbl_comment modify cmt_p_id bigint default 0;
 alter table tbl_comment modify cmt_date datetime default current_timestamp;
 alter table tbl_comment drop column cmt_time;
 
+select * from tbl_bbs;
 select * from tbl_comment;
