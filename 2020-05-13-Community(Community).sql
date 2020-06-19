@@ -26,17 +26,6 @@ ORDER BY board_no DESC;
 SELECT * FROM tbl_board WHERE board_p_no != '0';
 SELECT * FROM tbl_users;
 
-WITH RECURSIVE CTE AS (
-    (SELECT board_no, board_p_no
-	FROM tbl_board
-	WHERE board_no = '35')
-    UNION ALL
-    (SELECT a.board_no, a.board_p_no
-	FROM tbl_board a
-	INNER JOIN CTE b ON a.board_p_no = b.board_no)
-)
-SELECT board_no, board_p_no FROM CTE;
-
 use community;
 DROP TABLE tbl_comment;
 DROP TABLE tbl_board;
@@ -44,39 +33,22 @@ DROP TABLE tbl_category;
 DROP TABLE tbl_board_info;
 DROP TABLE authorities;
 DROP TABLE tbl_users;
-commit;
 
+SELECT * FROM tbl_users;
+DELETE FROM tbl_users WHERE username = 'user';
 
+SELECT * FROM tbl_board;
 
+SELECT COUNT(*)
+		FROM tbl_board
+		WHERE
+			board_info = 1
+			AND
+			board_delete = 0
+			AND
+			board_subject LIKE CONCAT('%', '1', '%');
 
+SELECT * FROM tbl_category;
+DELETE FROM tbl_category WHERE cate_id = 4;
 
-
-
-
-
-
-
-            
-SELECT b.*, fnc.level
-FROM (
-	SELECT fnc_depth() AS board_no, @level AS level
-	FROM (SELECT @start_with:=0, @board_no:=@start_with, @level:=0) AS vars
-	JOIN tbl_board
-    WHERE @board_no IS NOT NULL
-    ) AS fnc
-JOIN tbl_board AS b ON fnc.board_no = b.board_no;
-
-
-SELECT
-	(CASE WHEN level-1 > 0 then CONCAT(CONCAT(REPEAT('   ', level-1),'┗'), b.board_subject)
-	ELSE b.board_subject
-	END) AS board_subject
-	, b.board_no
-	, b.board_p_no
-	, fnc.level
-FROM
-	(SELECT fnc_depth() AS board_no, @level AS level
-	FROM (SELECT @start_with:=0, @board_no:=@start_with, @level:=0) vars
-	JOIN tbl_board
-	WHERE @board_no IS NOT NULL) fnc
-JOIN tbl_board b ON fnc.board_no = b.board_no;
+select LAST_INSERT_ID() from tbl_board;
