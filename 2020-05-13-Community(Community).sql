@@ -52,3 +52,5 @@ SELECT * FROM tbl_category;
 DELETE FROM tbl_category WHERE cate_id = 4;
 
 select LAST_INSERT_ID() from tbl_board;
+
+SELECT * FROM tbl_comment;
