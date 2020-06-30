@@ -34,10 +34,7 @@ DROP TABLE tbl_board_info;
 DROP TABLE authorities;
 DROP TABLE tbl_users;
 
-SELECT * FROM tbl_users;
-DELETE FROM tbl_users WHERE username = 'user';
-
-SELECT * FROM tbl_board;
+delete from tbl_comment;
 
 SELECT COUNT(*)
 		FROM tbl_board
